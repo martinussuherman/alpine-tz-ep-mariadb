@@ -2,8 +2,8 @@ FROM martinussuherman/alpine-tz-ep
 
 ENV LABEL_MAINTAINER="Martinus Suherman" \
     LABEL_VENDOR="martinussuherman" \
-    LABEL_IMAGE_NAME="martinussuherman/alpine-tz-ep-mariadb" \
-    LABEL_URL="https://hub.docker.com/r/martinussuherman/alpine-tz-ep-mariadb/" \
+    LABEL_IMAGE_NAME="martinussuherman/alpine-tz-ep-mariadb-edge" \
+    LABEL_URL="https://hub.docker.com/r/martinussuherman/alpine-tz-ep-mariadb-edge/" \
     LABEL_VCS_URL="https://github.com/martinussuherman/alpine-tz-ep-mariadb" \
     LABEL_DESCRIPTION="Docker image for MariaDB, based on Alpine Linux." \
     LABEL_LICENSE="GPL-3.0" \
@@ -20,7 +20,8 @@ ENV LABEL_MAINTAINER="Martinus Suherman" \
     # additional directories to create + chown (space separated) \
     ECHOWNDIRS="/run/mysqld"
 
-RUN apk --update add mariadb mariadb-client pwgen perl && \
+RUN sed -i -e 's/v[[:digit:]]\.[[:digit:]]/edge/g' /etc/apk/repositories && \
+    apk --update add mariadb mariadb-client pwgen perl && \
     rm -f /var/cache/apk/*
 
 COPY run.sh /
