@@ -20,7 +20,7 @@ ENV LABEL_MAINTAINER="Martinus Suherman" \
     # additional directories to create + chown (space separated) \
     ECHOWNDIRS="/run/mysqld"
 
-RUN apk --update add mariadb mariadb-client pwgen perl && \
+RUN apk --update add mariadb mariadb-client pwgen perl perl-doc && \
     rm -f /var/cache/apk/*
 
 COPY run.sh /
