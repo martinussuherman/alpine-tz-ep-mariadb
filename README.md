@@ -25,7 +25,7 @@ More info on [Wikipedia](https://en.wikipedia.org/wiki/MariaDB)
 ### *Using docker run*
 
 ```bash
-$ docker run --name mariadb -v /path/to/mariadb-data-on-host:/var/lib/mysql -e TZ=Asia/Jakarta -e EUID=$(id -u) -e EGID=$(id -g) martinussuherman/alpine-tz-ep-mariadb
+$ docker run --name mariadb -v /path/to/mariadb-data-on-host:/data -v /path/to/mysql/config.cnf:/etc/mysql/my.cnf:ro -e TZ=Asia/Jakarta -e EUID=$(id -u) -e EGID=$(id -g) martinussuherman/alpine-tz-ep-mariadb
 ```
 This will set the `timezone` to Asia/Jakarta (you will want to change it to your own timezone) and map the `user id` dan `group id` of the current user to `mysql` user and group.
 
@@ -42,7 +42,8 @@ services:
       - EUID=1001
       - EGID=1001
     volumes:
-      - /path/to/mariadb-data-on-host:/var/lib/mysql
+      - /path/to/mysql/config.cnf:/etc/mysql/my.cnf:ro
+      - /path/to/mariadb-data-on-host:/data
 ```
 
 *Note:* you will want to change the value for `EUID` and `EGID` with your current user `user id` dan `group id`.
